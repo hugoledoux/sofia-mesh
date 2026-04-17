@@ -125,9 +125,9 @@ The repository includes comprehensive examples demonstrating various use cases. 
 - **Topology verification**: Built-in checks for mesh conformity and validity
 - **Benchmarking**: Performance tests for batch operations and large-scale refinement
 
-The library handles meshes ranging from tens to thousands of elements, because pure Python is used. The repository also includes benchmarks focused on the split/collapse/flip kernels used during anisotropic remeshing.
+Because the implementation is pure Python, the library currently handles meshes ranging from tens to thousands of elements. The repository also includes benchmarks focused on the split/collapse/flip kernels used during anisotropic remeshing.
 
-Notice that, as mentioned in the repository README, a future C++ backend is planned to handle meshes up to 1M+ triangles; however, the current release is a pure Python package and this paper describes functionality available in the present version.
+Note that, as mentioned in the repository README, a future C++ backend is planned to handle meshes up to 1M+ triangles; however, the current release is a pure Python package and this paper describes functionality available in the present version.
 
 # State of the Field and Comparison
 
