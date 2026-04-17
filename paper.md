@@ -36,8 +36,6 @@ While several mesh generation tools exist [@Shewchuk1996;@Geuzaine2009;@MeshPy;@
 4. **Quality management** with metrics and optimisation strategies for isotropic and anisotropic meshes
 5. **Reliability** supported by an extensive unit test suite
 
-The repository README mentions a future C++ backend; however, the current release is a pure Python package and this paper describes functionality available in the present version.
-
 The library is designed for computational scientists, researchers, and engineers who need to adaptively refine/coarsen meshes during simulations, optimize existing meshes, implement custom mesh adaptation strategies, or generate boundary layer meshes for high-Reynolds number flows.
 
 # Functionality
@@ -56,14 +54,14 @@ The library is designed for computational scientists, researchers, and engineers
 
 A key feature of `SOFIA` is its support for anisotropic mesh adaptation, crucial for capturing directional features [@mesri2006continuous;@mesri2008dynamic;@Alauzet2010;@Loseille2011;@mesri2016optimal]:
 
-![Example of an anisotropic adapted triangular mesh produced with `SOFIA`. The adaptation is driven by a user-supplied metric tensor field, resulting in strongly stretched elements aligned with the target features while preserving the domain boundary.](docs/images/anisotropic_remeshing_levelset.png)
-
 - **Metric tensor field**: User-defined symmetric positive-definite tensor field specifying desired mesh resolution and anisotropy
 - **Metric-based edge lengths**: Operations use metric edge length $L_M(e) = \sqrt{(p_2-p_1)^T M (p_2-p_1)}$ instead of Euclidean distance
 - **Boundary layer support**: Natural support for highly anisotropic elements near boundaries (high aspect ratios)
 - **Smooth transitions**: Metric fields can specify smooth transitions from anisotropic to isotropic regions
 
 Here, $p_1$ and $p_2$ are the endpoints of an edge $e$ in physical coordinates, $M$ is the symmetric positive-definite metric tensor (or a suitable edge-averaged metric), and $L_M(e)$ is the target length measure used to decide whether an edge should be split or collapsed. This is a **metric-based h-adaptation** approach (in the spirit of local mesh modification governed by a metric) rather than a hierarchical refinement strategy.
+
+![Example of an anisotropic adapted triangular mesh produced with `SOFIA`. The adaptation is driven by a user-supplied metric tensor field, resulting in strongly stretched elements aligned with the target features while preserving the domain boundary.](docs/images/anisotropic_remeshing_levelset.png)
 
 ### Key Innovation: Boundary-aware Edge Collapse
 
@@ -127,13 +125,15 @@ The repository includes comprehensive examples demonstrating various use cases. 
 - **Topology verification**: Built-in checks for mesh conformity and validity
 - **Benchmarking**: Performance tests for batch operations and large-scale refinement
 
-The library handles meshes ranging from tens to thousands of elements. The repository also includes benchmarks focused on the split/collapse/flip kernels used during anisotropic remeshing.
+The library handles meshes ranging from tens to thousands of elements, because pure Python is used. The repository also includes benchmarks focused on the split/collapse/flip kernels used during anisotropic remeshing.
+
+Notice that, as mentioned in the repository README, a future C++ backend is planned to handle meshes up to 1M+ triangles; however, the current release is a pure Python package and this paper describes functionality available in the present version.
 
 # State of the Field and Comparison
 
 `SOFIA` complements and extends existing tools in the Python ecosystem:
 
-- **Triangle/MeshPy** [@Shewchuk1996;@MeshPy]: Provides Delaunay triangulation and refinement; `SOFIA` specialises in metric-based anisotropic adaptation and modification with automatic boundary preservation.
+- **Triangle/MeshPy** [@MeshPy;@Shewchuk1996]: Provides Delaunay triangulation and refinement; `SOFIA` specialises in metric-based anisotropic adaptation and modification with automatic boundary preservation.
 - **PyMesh** [@PyMesh]: Requires substantial C++ dependencies; `SOFIA` aims to remain lightweight with a pure-Python implementation that is easily extensible for research and prototyping.
 - **FEniCS/Firedrake mesh tools** [@Logg2012]: Useful within FEM frameworks; for metric-based adaptation workflows connected to Firedrake via PETSc/ParMmg see e.g. [@wallwork2022parmmsg]. `SOFIA` remains framework-agnostic and can be used upstream of different PDE codes.
 - **MMG/BAMG and related remeshers** [@MMG;@BAMG]: High-performance anisotropic remeshers; `SOFIA` provides a Python-native workflow and emphasises boundary-aware collapse.
@@ -142,7 +142,7 @@ The library handles meshes ranging from tens to thousands of elements. The repos
 
 # Availability
 
-The source code for `SOFIA` is available on GitHub at [https://github.com/youssef-mesri/sofia-mesh](https://github.com/youssef-mesri/sofia-mesh) and is archived on Zenodo [@sofia2024] with DOI: [10.5281/zenodo.18492172](https://doi.org/10.5281/zenodo.18492172).
+The source code for `SOFIA` is available on GitHub at [https://github.com/youssef-mesri/sofia-mesh](https://github.com/youssef-mesri/sofia-mesh).
 
 # Acknowledgements
 
